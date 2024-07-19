@@ -1,0 +1,71 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" rel="stylesheet">
+
+    <script type="text/javascript">
+        function togglePasswordVisibility() {
+            var passwordField = document.getElementById("password");
+            var eyeIcon = document.getElementById("eye-icon");
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                eyeIcon.classList.remove("bi-eye-fill");
+                eyeIcon.classList.add("bi-eye-slash-fill");
+            } else {
+                passwordField.type = "password";
+                eyeIcon.classList.remove("bi-eye-slash-fill");
+                eyeIcon.classList.add("bi-eye-fill");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="contenedor">
+        <div id="contenedorcentrado">
+            <div id="login">
+                <div class="logo-container">
+                    <img src="{% static 'img/logo.png' %}" alt="Logo" class="logo-img">
+                </div>
+
+                <form method="post">
+                    {% csrf_token %}
+                    {% if form.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        Los datos de inicio de sesión proporcionados no son válidos. Por favor, verifiquelos e inténtalo nuevamente.                   
+                    </div>
+                    {% endif %}
+
+                    <label for="usuario">Usuario</label>
+                    <input id="usuario" type="text" name="username" placeholder="Usuario" required>
+                    
+                    <label for="password">Contraseña</label>
+                    <div class="password-field">
+                        <input id="password" type="password" placeholder="Contraseña" name="password" required>
+                        <i id="eye-icon" class="bi bi-eye-fill" title="Mostrar contraseña" onclick="togglePasswordVisibility()"></i>
+                    </div>
+                    
+                    <button type="submit" title="Ingresar" name="Ingresar">Login</button>
+                </form>
+            </div>
+            <div id="derecho">
+                <div class="titulo">
+                    Bienvenido
+                </div>
+                <hr>
+                <div class="pie-form">
+                    <p>Sistema de gestión de datos Digital Bridge Communications</p>
+                    <hr>
+                    <a href="{% url 'recuperar_contrasena' %}">¿Olvidaste tu contraseña?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

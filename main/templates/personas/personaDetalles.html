@@ -1,0 +1,137 @@
+{% extends 'partials/body.html' %}
+{% load static %}
+
+{% block contenido %}
+<title>PERSONA DETALLES</title>
+
+<div class="contenedor" id="contenedor-contrato">
+  <h2>PERSONA</h2>
+  <br>
+
+  <!-- DATOS DE LA PERSONA -->
+  <div class="seccion-container">
+    <div class="row">
+      <div class="col">
+        <h3>DATOS DEL EMPLEADO</h3>
+        <br>
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label for="nombre_empleado" class="form-label">Nombre Completo:</label>
+            <span id="nombre_empleado">{{ persona.nombre_persona }}</span>
+          </div>
+          <div class="col-md-4">
+            <label for="tipo_documento_empleado" class="form-label">Tipo de documento de identidad:</label>
+            <span id="tipo_documento_empleado">{{ persona.tipo_documento_persona }}</span>
+          </div>
+          <div class="col-md-4">
+            <label for="numero_documento_empleado" class="form-label">Documento de identidad:</label>
+            <span id="numero_documento_empleado">{{ persona.numero_documento_persona }}</span>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label for="correo_empleado" class="form-label">Correo electrónico:</label>
+            <span id="correo_empleado">{{ persona.correo_persona }}</span>
+          </div>
+          <div class="col-md-4">
+            <label for="celular_empleado" class="form-label">Celular:</label>
+            <span id="celular_empleado">{{ persona.celular_persona }}</span>
+          </div>
+          <div class="col-md-4">
+            <label for="direccion_residencia_empleado" class="form-label">Dirección de residencia:</label>
+            <span id="direccion_residencia_empleado">{{ persona.direccion_residencia_persona }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTRATOS -->
+  <div class="seccion-container">
+    <div class="row">
+      <div class="col">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>CONTRATOS</h3>
+        <a href="{% url 'crear_contrato' %}" class="btn btn-primary float-end" id="boton-crear">Crear Contrato</a>
+        </div>
+        <br>
+        <div class="col-12 table-responsive">
+          <table class="table table-striped table-hover table-bordered border-secondary table align-middle" id="tblcontratos">  
+            <thead class="thead-dark align-middle">
+              <tr id="tabla-header">
+                <th scope="col" class="text-center">ID</th>
+                <th scope="col" class="text-center">Tipo de Contrato</th>
+                <th scope="col" class="text-center">Estado</th>
+                <th scope="col" class="text-center">Fecha de Inicio</th>
+                <th scope="col" class="text-center">Fecha de Finalización</th>
+                <th scope="col" class="text-center">Ver Contrato</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for contrato in persona.contrato_set.all %}
+              <tr>
+                <td class="text-center">{{ contrato.id }}</td>
+                <td class="text-center">{{ contrato.tipo_contrato }}</td>
+                <td class="text-center">{{ contrato.estado }}</td>
+                <td class="text-center">{{ contrato.fecha_inicio }}</td>
+                <td class="text-center">{{ contrato.fecha_terminacion }}</td>
+                <td class="text-center">
+                  <a href="{% url 'detalles_contrato' contrato.id %}" class="btn btn-success" id="ver-mas">Ver Contrato</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOCUMENTOS SST -->
+  <div class="seccion-container">
+    <div class="row">
+      <div class="col">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>DOCUMENTOS SST</h3>
+        <a href="{% url 'adjuntar_documentoSST' %}" class="btn btn-primary float-end" id="boton-crear">Adjuntar Documento SST</a>
+        </div>
+        <br>
+        <div class="col-12 table-responsive">
+          <table class="table table-striped table-hover table-bordered border-secondary table align-middle" id="tblpersonasSST">  
+            <thead class="thead-dark align-middle">
+              <tr id="tabla-header">
+                <th scope="col" class="text-center">ID</th>
+                <th scope="col" class="text-center">Tipo de Documento</th>
+                <th scope="col" class="text-center">Nombre Documento</th>
+                <th scope="col" class="text-center">Fecha de creación</th>
+                <th scope="col" class="text-center">Creado por</th>
+                <th scope="col" class="text-center">Ver Documento</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for personaSST in persona.personassst_set.all %}
+              <tr>
+                <td class="text-center">{{ personaSST.id }}</td>
+                <td class="text-center">{{ personaSST.tipo_documento }}</td>
+                <td class="text-center">{{ personaSST.nombre_documento }}</td>
+                <td class="text-center">{{ personaSST.fecha_creacion }}</td>
+                <td class="text-center">{{ personaSST.creado_por }}</td>
+                <td class="text-center">
+                  <a href="{% url 'detalles_personaSST' personaSST.id %}" class="btn btn-success" id="ver-mas">Ver Documento</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTONES -->
+  <a href="{% url 'personas' %}" class="btn btn-primary" id="boton-volver">Volver</a>
+  <a href="{% url 'editar_persona' persona.id %}" class="btn btn-primary float-end" id="boton-editar">Editar</a>
+</div>
+<br><br><br>
+{% endblock contenido %}

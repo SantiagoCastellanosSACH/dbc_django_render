@@ -1,0 +1,26 @@
+{% extends 'partials/body.html' %}
+{% load static %}
+
+{% block contenido %}
+<title>PERFIL</title>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="perfil-container">
+    <br>
+    <h1>Perfil de Usuario</h1>
+    <br>
+    <div class="perfil-info">
+        <p><strong>Nombre de usuario:</strong> {{ usuario.username }}</p>
+        <p><strong>Nombre:</strong> {{ usuario.first_name }}</p>
+        <p><strong>Apellido:</strong> {{ usuario.last_name }}</p>
+        <p><strong>Correo electrónico:</strong> {{ usuario.email }}</p> 
+    </div>
+    <a href="{% url 'admin:index' %}" class="admin-link">Ir al administrador</a>
+    <a href="{% url 'logout' %}" class="logout-link">Cerrar sesión</a>
+</div>
+
+{% endblock contenido %}
+

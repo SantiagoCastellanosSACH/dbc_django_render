@@ -1,0 +1,54 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Recuperar Contraseña</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <style>
+        #contenedor {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; 
+            background-color: #1a2234; 
+        }
+
+        #login-container {
+            max-width: 900px; 
+            width: 90%; 
+            text-align: center; 
+        }
+
+        #login {
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.2);
+            box-sizing: border-box;
+            display: inline-block; 
+        }
+
+        #texto-recuperar-contraseña {
+            color: #ffffff; 
+        }
+    </style>
+</head>
+<body>
+    <div id="contenedor">
+        <div id="login-container">
+            <div id="login">
+                <div class="logo-container">
+                    <img src="{% static 'img/logo.png' %}" alt="Logo" class="logo-img">
+                </div>
+                <div id="texto-recuperar-contraseña">
+                    <p>Si olvidó su contraseña, por favor contáctese al correo jcifuentes1989@gmail.com solicitando una nueva contraseña. Gracias.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

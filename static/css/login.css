@@ -1,0 +1,172 @@
+body {
+    font-family: 'Overpass', sans-serif;
+    font-weight: normal;
+    font-size: 100%;
+    color: #ffffff;
+    margin: 0;
+}
+
+#contenedor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+
+#contenedorcentrado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    min-width: 380px;
+    max-width: 900px;
+    width: 90%;
+    min-height: 80vh;
+    background-color: #1a2234;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+#login {
+    width: 100%;
+    max-width: 360px;
+    padding: 30px;
+    background-color: #2d3f5e;
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px; 
+}
+
+.logo-img {
+    max-width: 100%;
+    height: auto;
+}
+
+#login label {
+    display: block;
+    font-size: 120%;
+    color: #ffffff;
+    margin-top: 15px;
+}
+
+#login input {
+    font-size: 110%;
+    color: #000000;
+    display: block;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 3px;
+}
+
+#login input::placeholder {
+    color: #99a2b2;
+}
+
+#login button {
+    font-size: 110%;
+    color: #ffffff;
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 3px;
+    background-color: #3c5a99;
+    margin-top: 10px;
+}
+
+#login button:hover {
+    background-color: #1d2f4f;
+}
+
+#derecho {
+    text-align: center;
+    width: 100%;
+    opacity: 0.70;
+    filter: alpha(opacity=70);
+    padding: 20px 50px 20px 50px;
+}
+
+.titulo {
+    font-size: 300%;
+    color: #ffffff;
+}
+
+.pie-form {
+    font-size: 90%;
+    text-align: center;
+    margin-top: 15px;
+}
+
+
+.pie-form a {
+    display: block;
+    text-decoration: none;
+    color: #ffffff;
+    margin-bottom: 3px;
+}
+
+.pie-form a:hover {
+    color: #99a2b2;
+}
+
+@media all and (max-width: 775px) {
+    #contenedorcentrado {
+        flex-direction: column-reverse;
+        min-width: 90%;
+        max-width: 90%;
+        width: 90%;
+        background-color: #1a2234;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.2);
+        padding: 30px;
+        box-sizing: border-box;
+    }
+
+    #login {
+        margin: 0 auto;
+    }
+
+    #derecho {
+        padding: 20px;
+    }
+
+    #login label {
+        text-align: left;
+    }
+}
+
+
+.password-field {
+    position: relative;
+}
+
+#password {
+    padding-right: 40px; 
+}
+
+#eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #3c5a99;
+}
+

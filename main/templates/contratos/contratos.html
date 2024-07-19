@@ -1,0 +1,140 @@
+{% extends 'partials/body.html' %}
+{% load static %}
+
+{% block contenido %}
+<title>CONTRATOS</title>
+
+<br>
+<br>
+<br>
+<div class="container text-center bg-white text-dark border rounded" id="contenedor_general">
+  <div class="row align-items-start">
+      <div class="col-12">
+        <br>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2>Contratos</h2>
+          <div class="d-flex align-items-center">
+              <a href="{% url 'crear_contrato' %}" class="btn btn-primary" id="boton-crear">Crear Contrato</a>
+              <button class="btn btn-primary" id="boton-exportar">Exportar Contratos</button>
+          </div>
+      </div>
+      
+      
+        <div class="form-group row">
+          <div class="col-md-2">
+            <select id="filtroCampo" class="form-select">
+              <option value="1">ID</option>
+              <option value="3">Empleado</option>
+              <option value="4"># Contrato Vigente</option>
+              <option value="2">Correo Electrónico</option>
+              <option value="0">Tipo de Contrato</option>
+              <option value="5">Fecha de Iniciación</option>
+              <option value="6">Fecha de Terminación</option>
+              <option value="7">Días Restantes</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <input type="text" id="busqueda" class="form-control" placeholder="Buscar...">
+          </div>
+        </div>
+        <br>
+      </div>
+
+      <div class="col-12 table-responsive">
+        <table class="table table-striped table-hover table-bordered border-secondary table align-middle" id="tblcontratos">  
+          <thead class="thead-dark align-middle">
+              <tr id="tabla-header">
+              <th scope="col" class="text-center">Tipo de Contrato</th>
+              <th scope="col" class="text-center">ID</th>
+              <th scope="col" class="text-center">Documento de Identidad</th>
+              <th scope="col" class="text-center">Nombres y Apellidos</th>
+              <th scope="col" class="text-center"># Contrato Vigente</th>
+              <th scope="col" class="text-center">Fecha de Iniciación</th>
+              <th scope="col" class="text-center">Fecha de Terminación</th>
+              <th scope="col" class="text-center">Días Restantes</th>
+              <th scope="col" class="text-center">Estado</th>
+              <th scope="col" class="text-center">Detalles</th>
+            </tr>
+          </thead>
+          <tbody id="tblcontratos">
+            {% for contrato in contratos %}
+            <tr>
+              <td class="text-center">{{ contrato.tipo_contrato }}</td>
+              <td class="text-center">{{ contrato.id }}</td>
+              <td class="text-center">{{ contrato.empleado.numero_documento_persona }}</td>
+              <td class="text-center">{{ contrato.empleado.nombre_persona }}</td>
+              <td class="text-center">{{ contrato.consecutivo }}</td>
+              <td class="text-center">{{ contrato.fecha_inicio }}</td>
+              <td class="text-center">{{ contrato.fecha_terminacion }}</td>
+              <td class="text-center">{{ contrato.calcular_dias_restantes }}</td>
+              <td class="text-center">{{ contrato.estado }}</td>
+              <td class="text-center">
+                <a href="{% url 'detalles_contrato' contrato.id %}"  class="btn btn-primary" id="ver-mas" style="background-color: #003594; border-color: #003594;">Ver Detalles</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<br>
+<br>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+
+<script>
+  $(document).ready(function() {
+    var table = $('#tblcontratos').DataTable({
+      "pagingType": "simple_numbers",
+      "language": {
+        "zeroRecords": "No se encontraron registros",
+        "info": "Mostrando página _PAGE_ de _PAGES_",
+        "infoEmpty": "No hay registros disponibles",
+        "infoFiltered": "(filtrado de _MAX_ registros totales)",
+        "paginate": {
+          "first": "Primero",
+          "last": "Último",
+          "next": "Siguiente",
+          "previous": "Anterior"
+        },
+        "search": "" // Desactiva el texto de búsqueda
+      },
+      "searching": true, // Habilitar la búsqueda
+      "lengthChange": false, // Desactiva el control de selección de registros por página
+      "dom": 'frtip', // Quita los botones predeterminados excepto el botón personalizado
+      "buttons": [
+        {
+          extend: 'excelHtml5',
+          className: 'btn btn-primary',
+          text: 'Exportar a Excel'
+        }
+      ]
+    });
+
+    // Función para exportar al hacer clic en el botón personalizado
+    $('#boton-exportar').on('click', function() {
+      table.button('.buttons-excel').trigger();
+    });
+
+    // Aplicar búsqueda por columna seleccionada
+    $('#filtroCampo').change(function() {
+      var columnIndex = $(this).val();
+      table.column(columnIndex).search($('#busqueda').val()).draw();
+    });
+
+    // Aplicar búsqueda al escribir en la barra de búsqueda
+    $('#busqueda').on('keyup', function() {
+      var columnIndex = $('#filtroCampo').val();
+      table.column(columnIndex).search(this.value).draw();
+    });
+  });
+</script>
+
+{% endblock contenido %}

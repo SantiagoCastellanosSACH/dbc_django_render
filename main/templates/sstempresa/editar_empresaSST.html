@@ -1,0 +1,17 @@
+{% extends 'partials/body.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block contenido %}
+
+  <title>EDITAR ARCHIVO EMPRESA SST</title>
+
+  <div class="contenedor" id="contenedor-contrato">
+    <h2>EDITAR ARCHIVO EMPRESA SST</h2>
+
+    <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% crispy form %}
+    </form>
+  </div>
+{% endblock contenido %}

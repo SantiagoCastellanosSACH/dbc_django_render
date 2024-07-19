@@ -1,0 +1,115 @@
+{% extends 'partials/body.html' %}
+{% load static %}
+
+{% block contenido %}
+<title>PERSONAS</title>
+
+<br>
+<br>
+<br>
+<!-- Contenido de la página -->
+<div class="container text-center bg-white text-dark border rounded" id="contenedor_general">
+  <div class="row align-items-start">
+      <div class="col-12">
+        <br>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2>Personas</h2>
+          <a href="{% url 'crear_persona' %}" class="btn btn-primary float-end" id="boton-crear">Crear Persona</a>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="form-group row">
+          <div class="col-md-2">
+            <select id="filtroCampo" class="form-select">
+              <option value="0">ID</option>
+              <option value="1">Nombre</option>
+              <option value="2">Tipo de Documento</option>
+              <option value="3">Número de Documento</option>
+              <option value="4">Correo Electrónico</option>
+              <option value="5">Celular</option>
+              <option value="6">Dirección de Residencia</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <input type="text" id="busqueda" class="form-control" placeholder="Buscar...">
+          </div>
+        </div>
+        <br>
+      </div>
+
+      <div class="col-12 table-responsive">
+        <table class="table table-striped table-hover table-bordered border-secondary table align-middle" id="tblpersonas">  
+          <thead class="thead-dark align-middle">
+              <tr id="tabla-header">
+              <th scope="col" class="text-center">ID</th>
+              <th scope="col" class="text-center">Nombre</th>
+              <th scope="col" class="text-center">Tipo de Documento</th>
+              <th scope="col" class="text-center">Número de Documento</th>
+              <th scope="col" class="text-center">Correo Electrónico</th>
+              <th scope="col" class="text-center">Celular</th>
+              <th scope="col" class="text-center">Dirección de Residencia</th>
+              <th scope="col" class="text-center">Detalles</th>
+            </tr>
+          </thead>
+          <tbody id="tblpersonas">
+            {% for persona in personas %}
+            <tr>
+              <td class="text-center">{{ persona.id }}</td>
+              <td class="text-center">{{ persona.nombre_persona }}</td>
+              <td class="text-center">{{ persona.get_tipo_documento_persona_display }}</td>
+              <td class="text-center">{{ persona.numero_documento_persona }}</td>
+              <td class="text-center">{{ persona.correo_persona }}</td>
+              <td class="text-center">{{ persona.celular_persona }}</td>
+              <td class="text-center">{{ persona.direccion_residencia_persona }}</td>
+              <td>
+                <a href="{% url 'detalles_persona' persona.id %}"  class="btn btn-success" id="ver-mas">Ver Detalles</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+<script>
+  $(document).ready(function() {
+    $('#tblpersonas').DataTable({
+      "pagingType": "simple_numbers", // Usamos el tipo de paginación simple con números de página
+      "language": {
+        "zeroRecords": "No se encontraron registros",
+        "info": "Mostrando página _PAGE_ de _PAGES_",
+        "infoEmpty": "No hay registros disponibles",
+        "infoFiltered": "(filtrado de _MAX_ registros totales)",
+        "paginate": {
+          "first": "Primero",
+          "last": "Último",
+          "next": "Siguiente",
+          "previous": "Anterior"
+        },
+        "search": "" // Desactiva el texto de búsqueda
+      },
+      "searching": true, // Habilitar la búsqueda
+      "lengthChange": false // Desactiva el control de selección de registros por página
+    });
+
+    // Aplicar búsqueda por columna seleccionada
+    $('#filtroCampo').change(function() {
+      var columnIndex = $(this).val();
+      $('#tblpersonas').DataTable().column(columnIndex).search($('#busqueda').val()).draw();
+    });
+
+    // Aplicar búsqueda al escribir en la barra de búsqueda
+    $('#busqueda').on('keyup', function() {
+      var columnIndex = $('#filtroCampo').val();
+      $('#tblpersonas').DataTable().column(columnIndex).search(this.value).draw();
+    });
+  });
+</script>
+{% endblock contenido %}

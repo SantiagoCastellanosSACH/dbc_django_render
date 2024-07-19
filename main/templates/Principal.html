@@ -1,0 +1,121 @@
+{% extends 'partials/body.html' %}
+{% load static %}
+{% block contenido %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            background-color: #f8f9fa; /* Ajuste de color de fondo */
+        }
+        .card-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap; /* Permite que las tarjetas se acomoden en varias filas si es necesario */
+            margin-top: 2rem;
+        }
+        .card {
+            margin: 0.5rem;
+            width: 14rem; /* Ajuste el tamaño de las tarjetas */
+            height: 16rem; /* Altura de las tarjetas */
+            background: linear-gradient(to bottom right, #0857c3, #0857c3, #00a4ff); /* Degradado azul */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            transition: transform 0.3s;
+            color: white; /* Color de texto blanco */
+            text-align: center; /* Alineación de texto al centro */
+            padding: 1rem; /* Espaciado interno */
+            text-decoration: none; /* Eliminar subrayado */
+        }
+        .card:hover {
+            transform: scale(1.05);
+            color: white; /* Color de texto blanco en hover */
+        }
+        .card-body i {
+            font-size: 3rem; /* Aumenta el tamaño del icono */
+            margin-bottom: 1rem;
+        }
+        .card-body .card-title {
+            font-size: 1.25rem; /* Tamaño de título */
+            margin-bottom: 0.5rem; /* Espaciado inferior */
+        }
+        .card-body .card-text {
+            font-size: 1rem; /* Tamaño de texto */
+            margin-bottom: 1rem; /* Espaciado inferior */
+        }
+        .card-body a {
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container card-container">
+    <!-- Personas Card -->
+    <a href="{% url 'personas' %}" class="card text-center" title="Ir a Personas">
+        <div class="card-body">
+            <i class="bi bi-people"></i>
+            <h5 class="card-title">Personas</h5>
+            <p class="card-text">Gestión de Personas</p>
+        </div>
+    </a>
+    
+    <!-- Salud y Seguridad Card -->
+    <a href="{% url 'personasSST' %}" class="card text-center" title="Ir a Salud y Seguridad">
+        <div class="card-body">
+            <i class="bi bi-person-arms-up"></i>
+            <h5 class="card-title">Salud y Seguridad</h5>
+            <p class="card-text">Gestión de Salud y Seguridad</p>
+        </div>
+    </a>
+    
+    <!-- Contratación Card -->
+    <a href="{% url 'contratos' %}" class="card text-center" title="Ir a Contratación">
+        <div class="card-body">
+            <i class="bi bi-briefcase"></i>
+            <h5 class="card-title">Contratación</h5>
+            <p class="card-text">Gestión de Contratación</p>
+        </div>
+    </a>
+
+    <!-- Posiciones Card -->
+    <a href="{% url 'cargos' %}" class="card text-center" title="Ir a Posiciones">
+        <div class="card-body">
+            <i class="bi bi-person-vcard"></i>
+            <h5 class="card-title">Posiciones</h5>
+            <p class="card-text">Gestión de Posiciones</p>
+        </div>
+    </a>
+
+    <!-- Perfil Card -->
+    <a href="{% url 'perfil' %}" class="card text-center" title="Ir a Perfil">
+        <div class="card-body">
+            <i class="bi bi-person-circle"></i>
+            <h5 class="card-title">Perfil</h5>
+            <p class="card-text">Mi Perfil</p>
+        </div>
+    </a>
+</div>
+
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
+
+{% endblock contenido %}
