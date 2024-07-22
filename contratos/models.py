@@ -18,7 +18,7 @@ class Contrato(models.Model):
     ubicacion = models.CharField(max_length=255, verbose_name='Ubicación', default='Jenesano-Boyacá')
     direccion_notificacion_judicial= models.CharField(max_length=255, verbose_name='Dirección de notificación judicial', default='Calle 8 #3-42')
 
-    empleado = models.ForeignKey(Persona, on_delete=models.CASCADE)
+    empleado = models.ForeignKey(Persona, on_delete=models.SET_NULL, null=True, blank=True)
 
     TIPO_CONTRATO_CHOICES = [
         ('Contrato de Trabajo a Tiempo Completo - Término Fijo', 'Contrato de Trabajo a Tiempo Completo - Término Fijo'),
@@ -32,7 +32,7 @@ class Contrato(models.Model):
         ('Por vencer', 'Por vencer'),
         ('Liquidado', 'Liquidado'),
     ]
-    cargo_contrato = models.ForeignKey(Cargo, on_delete=models.CASCADE)
+    cargo_contrato = models.ForeignKey(Cargo, on_delete=models.SET_NULL, null=True, blank=True)
     tipo_contrato = models.CharField(max_length=255, choices=TIPO_CONTRATO_CHOICES)
     salario = models.DecimalField(max_digits=10, decimal_places=0) 
 
