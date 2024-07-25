@@ -28,9 +28,9 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","").split(",")
 
-CSRF_TRUSTED_ORIGINS = os.environ.get("TRUSTED_ORIGINS")
+CSRF_TRUSTED_ORIGINS = os.environ.get("TRUSTED_ORIGINS","").split(",")
 # https://dbc-django-render-1.onrender.com
 
 
