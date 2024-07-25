@@ -30,6 +30,9 @@ DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
+CSRF_TRUSTED_ORIGINS = os.environ.get("TRUSTED_ORIGINS")
+# https://dbc-django-render-1.onrender.com
+
 
 # Application definition
 
