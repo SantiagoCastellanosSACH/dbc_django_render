@@ -1,5 +1,6 @@
 asgiref==3.5.2
 async-timeout==4.0.2
+babel==2.15.0
 bcrypt==3.2.0
 beautifulsoup4==4.11.1
 blinker==1.4

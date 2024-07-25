@@ -1,9 +1,10 @@
 from django.db import models
 from personas.models import Persona
 from cargos.models import Cargo
-from django.utils import timezone
-import locale
+from django.utils import timezone 
+import locale 
 from datetime import datetime
+from babel.numbers import format_currency
 
 class Contrato(models.Model):
     razón_social = models.CharField(max_length=255, verbose_name='Razón social', default='DIGITAL BRIDGE COMMUNICATIONS')
@@ -37,9 +38,11 @@ class Contrato(models.Model):
     salario = models.DecimalField(max_digits=10, decimal_places=0) 
 
     def formato_salario(self):
-        locale.setlocale(locale.LC_ALL, '')
-        salario_formateado = locale.currency(self.salario, grouping=True)
-        return salario_formateado
+        return format_currency (self.salario, 'COP', locale='es_CO')
+        
+        #locale.setlocale(locale.LC_ALL, '')
+        #salario_formateado = locale.currency(self.salario, grouping=True)
+        #return salario_formateado
 
     duracion_contrato = models.CharField(max_length=255)
     fecha_inicio = models.DateField()
