@@ -22,15 +22,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
+#SECRET_KEY = 'django-insecure-4_r#52!y2^+k3kbp#7o)-(9r@j&twsurkk!_m=k#^2b)cic5g&'
 SECRET_KEY = os.environ.get("SECRET_KEY")
 # "django-insecure-4_r#52!y2^+k3kbp#7o)-(9r@j&twsurkk!_m=k#^2b)cic5g&"
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
+#DEBUG = True
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","").split(",")
+#ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = os.environ.get("TRUSTED_ORIGINS","").split(",")
+
 # https://dbc-django-render-1.onrender.com
 
 
@@ -110,17 +116,17 @@ DATABASES = {
         #'ENGINE': 'django.db.backends.sqlite3',
         #'NAME': BASE_DIR / 'db.sqlite3',
         
-        #'ENGINE': 'django.db.backends.mysql',
-        #'NAME': 'dbc_prueba',
-        #'USER': 'root',
-        #'PASSWORD': '',
-        #'HOST': '127.0.0.1', 
-        #'PORT': '3306',   
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'dbc_prueba',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '127.0.0.1', 
+        'PORT': '3306',   
     }
 }
 
-database_url = os.environ.get("DATABASE_URL")
-DATABASES["default"] = dj_database_url.parse(database_url)
+#database_url = os.environ.get("DATABASE_URL")
+#DATABASES["default"] = dj_database_url.parse(database_url)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
