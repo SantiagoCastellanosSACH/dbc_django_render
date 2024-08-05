@@ -56,6 +56,28 @@ body {
     height: auto;
 }
 
+.alert {
+    color: #d30000;
+}
+.alert_area {
+    border: none;
+    border-radius: 10px;
+    padding-inline: 10px;
+    padding-block: 3px;
+    background-color: #1a2234;
+    font-size: medium;
+}
+.btn_Login_user {
+    background-color: #3c5a99;
+    font-size: 110%;
+    color: #ffffff;
+    padding-block: 10px;
+    border-radius: 5px;
+}
+.btn_Login_user:hover {
+    background-color: #1d2f4f;
+}
+
 #login label {
     display: block;
     font-size: 120%;

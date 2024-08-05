@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.db import models
 from personas.models import Persona
 from cargos.models import Cargo
@@ -35,10 +36,12 @@ class Contrato(models.Model):
     ]
     cargo_contrato = models.ForeignKey(Cargo, on_delete=models.SET_NULL, null=True, blank=True)
     tipo_contrato = models.CharField(max_length=255, choices=TIPO_CONTRATO_CHOICES)
-    salario = models.DecimalField(max_digits=10, decimal_places=0) 
+    salario = models.CharField(max_length=15) 
 
     def formato_salario(self):
-        return format_currency (self.salario, 'COP', locale='es_CO')
+        salarioDecimal = Decimal(self.salario)
+        sinDecimal = salarioDecimal.quantize(Decimal('1'))
+        return format_currency (sinDecimal, 'COP', locale='es_CO')
         
         #locale.setlocale(locale.LC_ALL, '')
         #salario_formateado = locale.currency(self.salario, grouping=True)
@@ -48,11 +51,14 @@ class Contrato(models.Model):
     fecha_inicio = models.DateField()
     fecha_terminacion = models.DateField()
     fecha_pre_aviso = models.DateField()
+
+    adjunto_preaviso = models.FileField(upload_to='adjuntos_preaviso/')
+    fecha_publicacion_preaviso = models.DateField(null=True, blank=True)
+    
     estado = models.CharField(max_length=100, choices=ESTADO_CHOICES, default='Activo')
-    fecha_creacion_contrato = models.DateField(auto_now_add=True)  
+    fecha_creacion_contrato = models.DateField(auto_now_add=True) 
     adjunto_contrato = models.FileField(upload_to='adjuntos_contratos/')
     fecha_carga_adjunto_contrato = models.DateField(auto_now_add=True)
-    adjunto_preaviso = models.FileField(upload_to='adjuntos_preaviso/')
     dias_restantes = models.PositiveIntegerField(default=0, editable=False)
     consecutivo = models.PositiveIntegerField(unique=True, blank=True, null=True)
 

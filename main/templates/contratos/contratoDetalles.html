@@ -29,51 +29,63 @@
                 <span id="ubicacion">{{ contrato.ubicacion }}</span>
               </div>
             </div>
-
             <div class="row mb-3">
               <div class="col-md-4">
                 <label for="direccion_notificacion_judicial" class="form-label">Dirección para notificación judicial:</label>
                 <span id="direccion_notificacion_judicial">{{ contrato.direccion_notificacion_judicial }}</span>
-              </div>
-              <div class="col-md-4">
-                <label for="nombre_representante" class="form-label">Nombre completo del representante:</label>
-                <span id="nombre_representante">{{ contrato.nombre_representante_legal }}</span>
-              </div>
-              <div class="col-md-4">
-                <label for="cargo_representante" class="form-label">Cargo del representante legal:</label>
-                <span id="cargo_representante">{{ contrato.cargo_representante_legal }}</span>
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <div class="col-md-4">
-                <label for="tipo_documento_representante_legal" class="form-label">Tipo de documento de identidad:</label>
-                <span id="tipo_documento_representante_legal">{{ contrato.tipo_doc_representante_legal }}</span>
-              </div>
-              <div class="col-md-4">
-                <label for="numero_documento_representante_legal" class="form-label">Documento de identidad:</label>
-                <span id="numero_documento_representante_legal">{{ contrato.numero_doc_representante_legal }}</span>
-              </div>
-              <div class="col-md-4">
-                <label for="lugar_expedicion_documento_representante_legal" class="form-label">Lugar de expedición del documento:</label>
-                <span id="lugar_expedicion_documento_representante_legal">{{ contrato.lugar_expedicion_doc_representante_legal }}</span>
-              </div>  
-            </div>
-
-            <div class="row mb-3">
-              <div class="col-md-4">
-                <label for="correo_electronico_empleador" class="form-label">Correo electrónico:</label>
-                <span id="correo_electronico_empleador">{{ contrato.correo_representante_legal }}</span>
-              </div>
-              <div class="col-md-4">
-                <label for="celular_empleador" class="form-label">Celular del representante legal:</label>
-                <span id="celular_empleador">{{ contrato.celular_representante_legal }}</span>
               </div>
             </div>
           </form>
         </div>
       </div>
     </div>
+
+<!-- DATOS DEL REPRESENTANTE LEGAL -->
+<div class="seccion-container">
+  <div class="row">
+    <div class="col">
+      <h3>DATOS REPRESENTANTE LEGAL</h3>
+      <br>
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label for="nombre_representante" class="form-label">Nombre:</label>
+          <span id="nombre_representante">{{ contrato.nombre_representante_legal }}</span>
+        </div>
+        <div class="col-md-4">
+          <label for="cargo_representante" class="form-label">Cargo:</label>
+          <span id="cargo_representante">{{ contrato.cargo_representante_legal }}</span>
+        </div>
+        <div class="col-md-4">
+          <label for="tipo_documento_representante_legal" class="form-label">Tipo de documento:</label>
+          <span id="tipo_documento_representante_legal">{{ contrato.tipo_doc_representante_legal }}</span>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label for="numero_documento_representante_legal" class="form-label">Número de documento:</label>
+          <span id="numero_documento_representante_legal">{{ contrato.numero_doc_representante_legal }}</span>
+        </div>
+        <div class="col-md-4">
+          <label for="lugar_expedicion_documento_representante_legal" class="form-label">Lugar de expedición:</label>
+          <span id="lugar_expedicion_documento_representante_legal">{{ contrato.lugar_expedicion_doc_representante_legal }}</span>
+        </div> 
+        <div class="col-md-4">
+          <label for="correo_electronico_empleador" class="form-label">Correo electrónico:</label>
+          <span id="correo_electronico_empleador">{{ contrato.correo_representante_legal }}</span>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label for="celular_empleador" class="form-label">Celular:</label>
+          <span id="celular_empleador">{{ contrato.celular_representante_legal }}</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <!-- DATOS DEL EMPLEADO -->
 <div class="seccion-container">
@@ -176,8 +188,8 @@
                 <span id="fecha_creacion_contrato">{{ contrato.consecutivo }}</span>
               </div>
               <div class="col-md-4">
-                <label for="fecha_creacion_contrato" class="form-label">Dias Restantes</label>
-                <span id="fecha_creacion_contrato">{{ contrato.dias_restantes }}</span>
+                <label for="fecha_creacion_contrato" class="form-label">Días Restantes</label>
+                <span id="fecha_creacion_contrato">{{ contrato.calcular_dias_restantes }}</span>
               </div>
 
             </div>
@@ -236,6 +248,10 @@
       </span>
       {% endif %}
     </div>
+    <div class="col-md-4">
+      <label for="fecha_publicacion_preaviso" class="form-label">Fecha de carga:</label>
+      <span id="fecha_publicacion_preaviso">{{ contrato.fecha_publicacion_preaviso }}</span>
+    </div>
   </div>
 </div>
 
@@ -255,7 +271,3 @@
   <br>
   <br>
 {% endblock contenido %}
-
-
-
-

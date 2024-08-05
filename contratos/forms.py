@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Row, Column, Submit
@@ -20,12 +21,42 @@ class ContratoForm(forms.ModelForm):
         model = Contrato
         fields = '__all__'
         exclude = ['fecha_creacion_contrato', 'fecha_carga_adjunto_contrato']
-
+        labels = {
+            'razón_social': 'Razón Social',
+            'nit_empresa': 'NIT de la Empresa',
+            'ubicacion': 'Ubicación',
+            'direccion_notificacion_judicial': 'Dirección de Notificación Judicial',
+            'nombre_representante_legal': 'Nombre',
+            'cargo_representante_legal': 'Cargo',
+            'tipo_doc_representante_legal': 'Tipo de Documento',
+            'numero_doc_representante_legal': 'Número de Documento',
+            'lugar_expedicion_doc_representante_legal': 'Lugar de Expedición',
+            'correo_representante_legal': 'Correo',
+            'celular_representante_legal': 'Celular',
+            'empleado': 'Empleado',
+            'tipo_contrato': 'Tipo de Contrato',
+            'cargo_contrato': 'Cargo en el Contrato',
+            'salario': 'Salario',
+            'duracion_contrato': 'Duración del Contrato',
+            'fecha_inicio': 'Fecha de Inicio',
+            'fecha_terminacion': 'Fecha de Terminación',
+            'fecha_pre_aviso': 'Fecha de Pre-aviso',
+            'estado': 'Estado',
+            'adjunto_contrato': 'Adjunto del Contrato',
+            'adjunto_preaviso': 'Adjunto del Pre-aviso',
+        }
+    
     def __init__(self, *args, **kwargs):
         super(ContratoForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'post'
         self.helper.add_input(Submit('submit', 'Crear', style='background-color: #003594;'))
+
+        self.fields['salario'].widget = forms.TextInput(attrs={
+            'id': 'id_salario',
+            'type': 'text',
+            'maxlength': '15'
+        })
 
         self.fields['razón_social'].widget.attrs['readonly'] = True
         self.fields['nit_empresa'].widget.attrs['readonly'] = True
@@ -49,19 +80,26 @@ class ContratoForm(forms.ModelForm):
                 ),
                 Row(
                     Column('direccion_notificacion_judicial', css_class='form-group col-md-4 mb-3'),
-                    Column('nombre_representante_legal', css_class='form-group col-md-4 mb-3'),
-                    Column('cargo_representante_legal', css_class='form-group col-md-4 mb-3'),
-                ),
-                Row(
-                    Column('tipo_doc_representante_legal', css_class='form-group col-md-4 mb-3'),
-                    Column('numero_doc_representante_legal', css_class='form-group col-md-4 mb-3'),
-                    Column('lugar_expedicion_doc_representante_legal', css_class='form-group col-md-4 mb-3'),
-                ),
-                Row(
-                    Column('correo_representante_legal', css_class='form-group col-md-4 mb-3'),
-                    Column('celular_representante_legal', css_class='form-group col-md-4 mb-3'),
                 ),
                 css_class='seccion-container'
+            ),
+
+            Fieldset (
+                'DATOS DEL REPRESENTANTE LEGAL',
+                Row(
+                    Column('nombre_representante_legal', css_class='form-group col-md-4 mb-3'),
+                    Column('cargo_representante_legal', css_class='form-group col-md-4 mb-3'),
+                    Column('tipo_doc_representante_legal', css_class='form-group col-md-4 mb-3'),
+                ),
+            Row(
+                    Column('numero_doc_representante_legal', css_class='form-group col-md-4 mb-3'),
+                    Column('lugar_expedicion_doc_representante_legal', css_class='form-group col-md-4 mb-3'),
+                    Column('correo_representante_legal', css_class='form-group col-md-4 mb-3'),
+                ),
+            Row(
+                    Column('celular_representante_legal', css_class='form-group col-md-4 mb-3'),
+                ),
+            css_class='seccion-container'
             ),
             Fieldset(
                 'DATOS DEL EMPLEADO',
@@ -73,7 +111,7 @@ class ContratoForm(forms.ModelForm):
                 Row(
                     Column('tipo_contrato', css_class='form-group col-md-4 mb-3'),
                     Column('cargo_contrato', css_class='form-group col-md-4 mb-3'),
-                    Column('salario', css_class='form-group col-md-4 mb-3'),
+                    Column('salario', id='salario'),
                 ),
                 Row(
                     Column('duracion_contrato', css_class='form-group col-md-4 mb-3'),
@@ -105,10 +143,41 @@ class ContratoForm(forms.ModelForm):
         if not self.instance.pk:
             del self.fields['adjunto_preaviso']
 
+    def clean_salario(self):
+        salario = self.cleaned_data['salario']
+        salario = salario.replace('.', '')
+        return salario
+    
+
 class ContratoEditForm(forms.ModelForm):
     class Meta:
         model = Contrato
         fields = '__all__'
+        exclude = ['fecha_publicacion_preaviso']
+        labels = {
+            'razón_social': 'Razón Social',
+            'nit_empresa': 'NIT de la Empresa',
+            'ubicacion': 'Ubicación',
+            'direccion_notificacion_judicial': 'Dirección de Notificación Judicial',
+            'nombre_representante_legal': 'Nombre',
+            'cargo_representante_legal': 'Cargo',
+            'tipo_doc_representante_legal': 'Tipo de Documento',
+            'numero_doc_representante_legal': 'Número de Documento',
+            'lugar_expedicion_doc_representante_legal': 'Lugar de Expedición',
+            'correo_representante_legal': 'Correo',
+            'celular_representante_legal': 'Celular',
+            'empleado': 'Empleado',
+            'tipo_contrato': 'Tipo de Contrato',
+            'cargo_contrato': 'Cargo en el Contrato',
+            'salario': 'Salario',
+            'duracion_contrato': 'Duración del Contrato',
+            'fecha_inicio': 'Fecha de Inicio',
+            'fecha_terminacion': 'Fecha de Terminación',
+            'fecha_pre_aviso': 'Fecha de Pre-aviso',
+            'estado': 'Estado',
+            'adjunto_contrato': 'Adjunto del Contrato',
+            'adjunto_preaviso': 'Adjunto del Pre-aviso',
+        }
 
     def __init__(self, *args, **kwargs):
         super(ContratoEditForm, self).__init__(*args, **kwargs)
@@ -138,19 +207,26 @@ class ContratoEditForm(forms.ModelForm):
                 ),
                 Row(
                     Column('direccion_notificacion_judicial', css_class='form-group col-md-4 mb-3'),
-                    Column('nombre_representante_legal', css_class='form-group col-md-4 mb-3'),
-                    Column('cargo_representante_legal', css_class='form-group col-md-4 mb-3'),
-                ),
-                Row(
-                    Column('tipo_doc_representante_legal', css_class='form-group col-md-4 mb-3'),
-                    Column('numero_doc_representante_legal', css_class='form-group col-md-4 mb-3'),
-                    Column('lugar_expedicion_doc_representante_legal', css_class='form-group col-md-4 mb-3'),
-                ),
-                Row(
-                    Column('correo_representante_legal', css_class='form-group col-md-4 mb-3'),
-                    Column('celular_representante_legal', css_class='form-group col-md-4 mb-3'),
                 ),
                 css_class='seccion-container'
+            ),
+
+            Fieldset (
+                'DATOS DEL REPRESENTANTE LEGAL',
+                Row(
+                    Column('nombre_representante_legal', css_class='form-group col-md-4 mb-3'),
+                    Column('cargo_representante_legal', css_class='form-group col-md-4 mb-3'),
+                    Column('tipo_doc_representante_legal', css_class='form-group col-md-4 mb-3'),
+                ),
+            Row(
+                    Column('numero_doc_representante_legal', css_class='form-group col-md-4 mb-3'),
+                    Column('lugar_expedicion_doc_representante_legal', css_class='form-group col-md-4 mb-3'),
+                    Column('correo_representante_legal', css_class='form-group col-md-4 mb-3'),
+                ),
+            Row(
+                    Column('celular_representante_legal', css_class='form-group col-md-4 mb-3'),
+                ),
+            css_class='seccion-container'
             ),
             Fieldset(
                 'DATOS DEL EMPLEADO',
@@ -187,6 +263,7 @@ class ContratoEditForm(forms.ModelForm):
             ),
                 Row(
                     Column('fecha_carga_adjunto_contrato', css_class='form-group col-md-4 mb-3', style="display:none;"),
+                    Column('fecha_publicacion_preaviso', css_class='form-group col-md-4 mb-3', style="display:none;")
                 )
             )
         self.fields['fecha_inicio'].widget.attrs['class'] = 'datepicker'
@@ -195,3 +272,11 @@ class ContratoEditForm(forms.ModelForm):
         self.fields['fecha_inicio'].widget.attrs['readonly'] = True
         self.fields['fecha_terminacion'].widget.attrs['readonly'] = True
         self.fields['fecha_pre_aviso'].widget.attrs['readonly'] = True
+
+    def save(self, commit=True):
+        contrato = super(ContratoEditForm, self).save(commit=False)
+        if self.cleaned_data.get('adjunto_preaviso'):
+            contrato.fecha_publicacion_preaviso = timezone.now().date()
+        if commit:
+            contrato.save()
+        return contrato
