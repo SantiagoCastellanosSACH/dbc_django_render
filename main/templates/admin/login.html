@@ -37,8 +37,9 @@
                 <form id="loginform" action="/admin/login/?next=/admin/" method="post">
                     {% csrf_token %}
                     {% if form.errors %}
-                    <div class="alert alert-danger" role="alert">
-                        Los datos de inicio de sesión proporcionados no son válidos. Por favor, verifiquelos e inténtalo nuevamente.                   
+                    <div class="alert_area" role="alert">                   
+                        <h3 class="alert">INFORMACIÓN INCORRECTA</h3>
+                        <P>Los datos de inicio de sesión del ADMINISTRADOR no son válidos</P>
                     </div>
                     {% endif %}
 
@@ -64,7 +65,7 @@
                     <hr>
                     <a href="{% url 'recuperar_contrasena' %}">¿Olvidaste tu contraseña?</a>
                     <hr>
-                    <a href="{% url 'login' %}">Ir a inicio de sesión como usuario.</a>
+                    <a class="btn_Login_user" href="{% url 'login' %}">Ir a inicio de sesión como usuario.</a>
                 </div>
             </div>
         </div>

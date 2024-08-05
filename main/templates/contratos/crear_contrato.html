@@ -4,15 +4,9 @@
 
 {% block contenido %}
   <title>CREAR CONTRATO</title>
-<style>
-
-  
-</style>
   <div class="contenedor" id="contenedor-contrato">
     <h2>CONTRATO</h2>
     <br>
-
-    <!-- Formulario de Contrato -->
     <form method="post" action="{% url 'crear_contrato' %}" enctype="multipart/form-data">
       {% csrf_token %}
       {% crispy form %}  
@@ -23,15 +17,46 @@
 {% block scripts %}
 {{ block.super }}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.9/jquery.inputmask.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('.datepicker').datepicker({
-            format: 'yyyy-mm-dd',  // Formato de la fecha
-            autoclose: true,       // Cerrar automáticamente después de seleccionar la fecha
-            todayHighlight: true   // Resaltar la fecha actual
-        });
+
+  <script>
+    function putDotsAtNumber(number) {
+      const cleanedNumber = number.toString().replace(/[^\d]/g, '');
+      const  integerNumber = parseInt(cleanedNumber, 10);
+      if (isNaN(integerNumber)){
+        return '';
+      }
+      return integerNumber.toLocaleString('es-ES');
+    }
+
+    const salarioInput = document.getElementById('id_salario');
+    salarioInput.addEventListener('input', function() {
+      salarioInput.value = putDotsAtNumber(salarioInput.value);
     });
-</script>
+
+    $(document).ready(function() {
+      // Inicializar datepicker
+      $('.datepicker').datepicker({
+        format: 'yyyy-mm-dd', 
+        autoclose: true,       
+        todayHighlight: true   
+      });
+
+      // Formatear salario con puntos
+      /*$('#id_salario').inputmask({
+        alias:'numeric', 
+        groupSeparator: '.', 
+        autoGroup: true, 
+        digitsOptional: false,
+        prefix: '',
+        placeholder: '',
+        rightAlign: false,
+        removeMaskOnSubmit: true 
+      });*/
+
+    });
+  </script>
+
 {% endblock %}
 {% endblock contenido %}

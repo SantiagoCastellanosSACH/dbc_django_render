@@ -43,6 +43,7 @@ CSRF_TRUSTED_ORIGINS = os.environ.get("TRUSTED_ORIGINS","").split(",")
 # Application definition
 
 INSTALLED_APPS = [
+    'main',
     'jazzmin',
     'whitenoise.runserver_nostatic',#pip install whitenoise
     'django.contrib.admin',
@@ -128,6 +129,8 @@ DATABASES = {
 database_url = os.environ.get("DATABASE_URL")
 DATABASES["default"] = dj_database_url.parse(database_url)
 
+#DATABASES["default"] = dj_database_url.parse("postgresql://dbc_django_database_user:a29L7ZAo3laKME4y3JFouVNHr7ITfpt9@dpg-cqdckq1u0jms738mqvqg-a.oregon-postgres.render.com/dbc_django_database")
+
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -157,7 +160,6 @@ TIME_ZONE = 'America/Bogota'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
