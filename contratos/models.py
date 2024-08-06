@@ -92,4 +92,11 @@ class Contrato(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.tipo_contrato} - Salario: ${self.salario:,.0f}"
+        try:
+            salario = float(self.salario.replace('.', '').replace('.', ''))
+        except (ValueError, TypeError):
+            salario = 0.0
+        return f"{self.tipo_contrato} - Salario: ${salario:,.0f}"
+
+    #def __str__(self):
+    #    return f"{self.tipo_contrato} - Salario: ${self.salario:,.0f}"
